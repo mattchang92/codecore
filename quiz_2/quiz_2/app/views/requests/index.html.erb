@@ -1,0 +1,41 @@
+<h1 id="title">Support Requests</h1>
+<div class="search">
+  <%= form_tag request_search_path(:search) do %>
+  <div>
+    <%= label_tag("Search for a product")%>
+    <%= text_area_tag(:search_item) %>
+  </div>
+  <%= submit_tag "Search", class: "form-control submit"%>
+  <% end %>
+</div>
+
+
+<table class="table table-striped">
+  <th>Name
+    <td>Email</td>
+    <td>Department</td>
+    <td>Message</td>
+    <td style="width: 300px">Actions</td>
+  </th>
+  <% @requests.each do |request| %>
+  <tr>
+    <td><%= request.name %></td>
+    <td><%= request.email %></td>
+    <td><%= request.department %></td>
+    <td><%= request.message.gsub(/"|\[|\]/, '') %></td>
+    <td>
+      <%= link_to "Edit", edit_request_path(request), class: "btn" %>
+      <%= link_to "Delete", request_path(request), method: :delete, data: {confirm: "Are you sure?"}, class: "btn" %>
+      <% if request.status == false %>
+        <%= link_to "Not Done", request_update_path(request), class: "btn not-done" %>
+      <% else %>
+        <%= link_to "Done", request_update_path(request), class: "btn done" %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>
+
+<%# paginate @requests, params: { search_item: params[:search_item], controller: :requests, action: :index } %>
+<%= paginate @requests, :params => {:controller => :requests, :action => :index} %>

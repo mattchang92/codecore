@@ -1,0 +1,27 @@
+<h1 class="title">New Support Request</h1>
+<hr>
+<div class="container">
+  <%= form_for @request do |f| %>
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :email %>
+      <%= f.text_area :email %>
+    </div>
+    <div>
+      <%= f.label :Sales, style: "display: inline-block" %>
+      <%= radio_button_tag :department, 'Sales'%>
+      <%= f.label :Marketing, style: "display: inline-block" %>
+      <%= radio_button_tag :department, 'Marketing' %>
+      <%= f.label :Technical, style: "display: inline-block" %>
+      <%= radio_button_tag :department, 'Technical' %>
+    </div>
+    <div>
+      <%= f.label :message %>
+      <%= f.text_area :message %>
+    </div>
+    <%= f.submit "Save Request", :class => "btn-primary" %>
+  <% end %>
+</div>
