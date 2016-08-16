@@ -34,7 +34,7 @@ class RequestsController < ApplicationController
   end
 
   def index
-    if params[:id]
+    if params[:id].to_i > 0
       @request = Request.find params[:id]
       @request.status == false ? @request.status = true : @request.status = false
       @request.save

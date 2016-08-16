@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   resources :requests
   get "/requests/update/:id" => "requests#index", as: :request_update
-  post "/requests/:search" => "requests#index", as: :request_search
+  post "/requests/search/:id" => "requests#index", as: :request_search
 
 end
