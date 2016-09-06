@@ -1,0 +1,14 @@
+<!-- starting with an underscore indicates a partial file to be injected into other erb files -->
+<%= @idea.errors.full_messages.join(", ") %>
+
+<%= form_for @idea do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <%= f.submit "Save Idea", :class => "btn-primary" %>
+<% end %>

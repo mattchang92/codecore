@@ -1,0 +1,32 @@
+<h1>All Ideas</h1>
+<% @ideas.each do |idea| %>
+  <h3><%= link_to idea.title, idea_path(idea) %></h3>
+  <h4><%= idea.description %></h4>
+
+
+  <div class="row">
+    <div class="col-xs-2">By <%= idea.user.full_name %></div>
+    <div class="col-xs-1">
+      <% user_membership = idea.membership_for current_user %>
+      <% if user_membership.present? %>
+        <%= link_to "Leave", idea_membership_path(idea, user_membership), method: :delete, class: "btn" %>
+      <% else %>
+        <%= link_to "Join", idea_memberships_path(idea), method: :post, class: "btn" %>
+      <% end %>
+    </div>
+
+
+    <div class="col-xs-1">
+      <% user_like = idea.like_for current_user %>
+      <% if user_like.present? %>
+        <%= link_to "Unlike", idea_like_path(idea, user_like), method: :delete, class: "btn" %>
+      <% else %>
+        <%= link_to "Like", idea_likes_path(idea), method: :post, class: "btn" %>
+      <% end %>
+    </div>
+    <div class="col-xs-2 col-xs-offset-6">Members: <%= idea.memberships.count %> | Likes <%= idea.likes.count %></div>
+  </div>
+  <hr>
+<% end %>
+
+ <%= paginate @ideas %>

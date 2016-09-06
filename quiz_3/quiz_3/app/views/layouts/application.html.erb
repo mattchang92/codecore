@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quiz3</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <nav class="navbar navbar-inverse" style = 'width: 100%; background-color: #111111;'>
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "New Idea", new_idea_path %></li>
+        <li><%= link_to "View All Ideas", ideas_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "Welcome #{current_user.full_name}", ideas_path %>
+          <li><%= link_to "Sign Out", sessions_path, method: :delete %>
+        <% else %>
+          <li><%= link_to "Sign Up", new_user_path %></li>
+          <li><%= link_to "Sign In", new_session_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+  <div class="flash-message" style="text-align: center">
+    <%= flash[:notice] || flash[:alert]%>
+  </div>
+  <div class="container" style="width: 90%">
+    <%= yield %>
+  </div>
+</html>

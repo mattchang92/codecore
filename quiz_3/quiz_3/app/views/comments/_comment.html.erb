@@ -1,0 +1,11 @@
+<div id="<%= dom_id(comment) %>">
+  <%= comment.body %>
+  <span>Posted by: <strong><%= User.find(comment.user_id).full_name %></strong></span>
+  <% if can? :destroy, comment %>
+    <%= link_to "delete", idea_comment_path(@idea, comment),
+                        method: :delete,
+                        data: {confirm: "Are you sure?"} %>
+  <% end %>
+  <hr>
+
+</div>

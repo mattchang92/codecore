@@ -1,0 +1,32 @@
+<h2><%= @idea.title %></h2>
+<h4><%= @idea.description %></h4>
+<h5><%= pluralize @idea.likes.count, "like"  %></h5>
+
+
+
+<% if can? :manage, @idea %>
+<%= link_to "Edit", edit_idea_path(@idea), class: "btn" %>
+<%= link_to "Delete", idea_path(@idea), method: :delete, data: {confirm: "Are you sure?"}, class: "btn"  %>
+<% end %>
+
+<h4>All current members of this idea:</h4>
+<ol>
+  <% @members.each do |member| %>
+    <li><%= User.find(member.user_id).full_name %></li>
+  <% end %>
+</ol>
+
+<h4>Add a comment below:</h4>
+<%= form_for [@idea, @comment] do |f| %>
+  <div>
+    <%= f.text_area :body %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+<h2>Comments</h2>
+<div id="comments">
+  <% @idea.comments.each do |comment| %>
+    <%= render "/comments/comment", comment: comment %>
+  <% end %>
+</div>
