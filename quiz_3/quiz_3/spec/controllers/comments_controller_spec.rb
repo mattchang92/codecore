@@ -51,12 +51,18 @@ RSpec.describe CommentsController, type: :controller do
 
       it "redirects to the ideas show page" do
         valid_request
+        c = Comment.last
+        delete :destroy, params: { id: c.id, idea_id: idea.id }
         expect(response).to redirect_to idea_path(idea)
       end
 
-      it "associates the created comment with the logged in user" do
+      it "it deletes the comment from the database" do
         valid_request
-        expect(Comment.last.user).to eq(user)
+        count_before = Comment.all.count
+        c = Comment.last
+        delete :destroy, params: { id: c.id, idea_id: idea.id }
+        count_after = Comment.all.count
+        expect(count_after).to eq(count_before - 1)
       end
     end
   end
