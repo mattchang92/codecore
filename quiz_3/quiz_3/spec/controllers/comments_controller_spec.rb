@@ -7,15 +7,20 @@ RSpec.describe CommentsController, type: :controller do
   let(:comment) { FactoryGirl.create :comment}
 
   describe "#create" do
+
+    def valid_request
+      post :create, params: { comment: {body: "Hello World"}, idea_id: idea.id }
+    end
+
     context "with no signed in user" do
       it "redirects to sign in path" do
-        post :create, params: { comment: {body: "Hello World"}, idea_id: idea.id }
+        valid_request
         expect(response).to redirect_to new_session_path
       end
 
       it "doesn't save to the database" do
         count_before = Comment.all.count
-        post :create, params: { comment: {body: "Hello World"}, idea_id: idea.id }
+        valid_request
         count_after = Comment.all.count
         expect(count_before).to eq(count_after)
       end
@@ -24,9 +29,6 @@ RSpec.describe CommentsController, type: :controller do
     context "with signed in user" do
       # before statement creates a signed in user for every session
       before { request.session[:user_id] = user.id}
-      def valid_request
-        post :create, params: { comment: {body: "Hello World"}, idea_id: idea.id }
-      end
 
       it "redirects to the ideas show page" do
         valid_request

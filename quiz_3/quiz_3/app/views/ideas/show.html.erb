@@ -11,7 +11,7 @@
 
 <h4>All current members of this idea:</h4>
 <ol>
-  <% @members.each do |member| %>
+  <% @members.each do |member| %> 
     <li><%= User.find(member.user_id).full_name %></li>
   <% end %>
 </ol>

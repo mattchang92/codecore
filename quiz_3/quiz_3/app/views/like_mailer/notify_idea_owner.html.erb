@@ -1,0 +1,16 @@
+<p>Hello <%= @idea_owner.full_name %>,</p>
+<p>
+  Someone liked your idea!
+</p>
+<p>
+  Question title: <%= @idea.title %>
+</p>
+
+<%= link_to "Click here to view the idea", idea_url(@idea) %>
+
+<p>
+  Regards,
+</p>
+<p>
+  Awesome Ideas
+</p>

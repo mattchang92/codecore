@@ -7,8 +7,9 @@ class LikesController < ApplicationController
     if cannot? :like, idea
       redirect_to ideas_path, alert: "Can't like your own idea"
     else
-      like = Like.new user: current_user, idea: idea
-      if like.save
+      @like = Like.new user: current_user, idea: idea
+      if @like.save
+        LikeMailer.notify_idea_owner(@like).deliver_later
         redirect_to ideas_path, notice: "Liked"
       else
         redirect_to ideas_path, alert: like.errors.full_messages.join(", ")
