@@ -3,11 +3,11 @@
 
 <%= form_for @idea do |f| %>
   <div>
-    <%= f.label :title %>
+    <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
   <div>
-    <%= f.label :description %>
+    <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
   <%= f.submit "Save Idea", :class => "btn-primary" %>

@@ -7,11 +7,8 @@ class Ability
 
     can :manage, Idea do |idea|
       user == idea.user
-    end
 
-    # can :manage, Answer do |answer|
-    #   user == answer.user || user == answer.question.user
-    # end
+    end
 
     can :like, Idea do |idea|
       user != idea.user
@@ -37,9 +34,8 @@ class Ability
       user == membership.user
     end
 
-
     can :destroy, Comment do |comment|
-      user == comment.user
+      user == comment.user || user == comment.idea.user
     end
 
     cannot :destroy, Comment do |comment|
