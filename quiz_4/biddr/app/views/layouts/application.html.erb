@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Biddr</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse" style = 'width: 100%; background-color: #111111;'>
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li><%= link_to "New Auction", new_auction_path %></li>
+          <li><%= link_to "View All Auctions", auctions_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "Welcome #{current_user.first_name} ", auctions_path %>
+            <li><%= link_to "Sign Out", sessions_path, method: :delete %>
+          <% else %>
+            <li><%= link_to "Sign Up", new_user_path %></li>
+            <li><%= link_to "Sign In", new_session_path %></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    <div class="flash-message" style="text-align: center">
+      <%= flash[:notice] || flash[:alert]%>
+    </div>
+    <div class="container" style="width: 90%">
+      <%= yield %>
+    </div>
+  </body>
+</html>

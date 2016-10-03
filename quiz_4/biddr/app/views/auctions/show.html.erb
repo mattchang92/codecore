@@ -1,0 +1,29 @@
+<h2><%= @auction.title %></h2>
+<h4><%= @auction.details %></h4>
+<h4><%= @auction.end_date %></h4>
+<h4>Current Price: $<%= @auction.bids.present? ? @auction.bids.last.amount : 0%></h4>
+<% if (current_user == @auction.user) && (@auction.draft?) %>
+  <%= link_to "Publish", auction_publishings_path(@auction),
+                         class: "btn btn-success btn-sm",
+                         method: :post,
+                         data: { confirm: "Are you sure you want to publish" }
+                         %>
+<% end %>
+
+
+<h4>Add a bid:</h4>
+<%= form_for [@auction, @bid], remote: true do |f| %>
+  <div>
+    <%= f.text_field :amount %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+<h4>Previous Bids</h4>
+<div id="bids">
+  <% if @bids.length >= 1 %>
+      <% @bids.each do |bid| %>
+        <%= render '/bids/bid', bid: bid %>
+      <% end %>
+  <% end %>
+</div>

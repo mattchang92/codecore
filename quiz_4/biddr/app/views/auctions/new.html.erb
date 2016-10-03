@@ -1,0 +1,32 @@
+<h1>Create New Auction</h1>
+<%= @auction.errors.full_messages.join(", ") %>
+
+<%= form_for @auction do |f| %>
+  <div>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :details %><br>
+    <%= f.text_area :details %>
+  </div>
+  <div>
+    <%= f.label "Ends On" %><br>
+    <%= f.text_field :end_date, id: "date-entry" %>
+  </div>
+  <div>
+    <%= f.label 'Reserve Price' %><br>
+    <%= f.text_field :reserve_price %>
+  </div>
+  <%= f.submit "Save", :class => "btn-primary" %>
+<% end %>
+
+
+<script>
+  $(function(){
+    $('#date-entry').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true
+    })
+  })
+</script>
